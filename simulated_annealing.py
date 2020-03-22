@@ -5,6 +5,8 @@ from scipy.optimize import minimize
 import random
 
 ######### DO NOT CHANGE ANYTHING IN THIS FILE ##################
+## i just did ##
+
 API_ENDPOINT = 'http://10.4.21.147'
 PORT = 3000
 MAX_DEG = 11
