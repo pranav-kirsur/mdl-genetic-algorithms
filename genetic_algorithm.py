@@ -85,7 +85,7 @@ def get_mating_pool(population, fitness):
     probablities = np.reciprocal(probablities)
     probablities = probablities / np.sum(probablities)
     mating_pool = pop_fit[np.random.choice(
-        POPULATION_SIZE, size=MATING_POOL_SIZE, replace=False, p=probablities), 0:11]
+        POPULATION_SIZE, size=MATING_POOL_SIZE, replace=False, p=probablities)]
 
     print(mating_pool)
     return mating_pool
