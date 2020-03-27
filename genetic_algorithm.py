@@ -58,8 +58,8 @@ def send_request(id, vector, path):
 
 
 # Genetic algo parameters
-POPULATION_SIZE = 8
-MATING_POOL_SIZE = 4
+POPULATION_SIZE = 16
+MATING_POOL_SIZE = 8
 
 
 # Size of the population
@@ -98,6 +98,7 @@ def crossover(parents, children_shape):
         children[i, 0: crossover_index] = parents[parent_1_index,
                                                   0: crossover_index]
         children[i, crossover_index:] = parents[parent_2_index, crossover_index:]
+        children[i, 0: ] = np.divide((np.multiply(parents[parent_1_index,0: ],parent_2_index+1)  +  np.multiply(parents[parent_2_index, 0:],parent_1_index+1)),parent_1_index+parent_2_index+2)
 
     return children
 
@@ -125,7 +126,7 @@ for generation in range(NUMBER_OF_GENERATIONS):
 
     mini = np.argmin(fitness_of_population)
     submit(SECRET_KEY, list(population[mini, :]))
-    print("Current best:", np.min(fitness_of_population))
+    print("Current best:", pow(np.min(fitness_of_population),1))
 
     # Select the mating pool that will become parents for the next generation
     parents = get_mating_pool(population, fitness_of_population)
