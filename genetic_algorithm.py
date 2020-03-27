@@ -70,7 +70,7 @@ def get_fitness(population):
     fitness_array = np.zeros((POPULATION_SIZE, 1))
     for member_index in range(POPULATION_SIZE):
         print(list(population[member_index, :]))
-        err_arr = get_errors(SECRET_KEY,list(population[member_index, :])) 
+        err_arr = get_errors(SECRET_KEY, list(population[member_index, :]))
         fitness_array[member_index] = err_arr[1]
     return fitness_array
 
@@ -78,7 +78,16 @@ def get_fitness(population):
 def get_mating_pool(population, fitness):
     pop_fit = np.concatenate((population, fitness), axis=1)
     pop_fit = pop_fit[np.argsort(pop_fit[:, 11])]
-    mating_pool = pop_fit[0:MATING_POOL_SIZE, 0:11]
+
+    # Probablities of selection
+    probablities = np.arange(1.0, POPULATION_SIZE+1, 1.0)
+
+    probablities = np.reciprocal(probablities)
+    probablities = probablities / np.sum(probablities)
+    mating_pool = pop_fit[np.random.choice(
+        POPULATION_SIZE, size=MATING_POOL_SIZE, replace=False, p=probablities), 0:11]
+
+    print(mating_pool)
     return mating_pool
 
 
@@ -101,8 +110,9 @@ def crossover(parents, children_shape):
 
     return children
 
+
 def mutation(children):
-    random = np.random.uniform(low = -1, high = 1, size = children.shape)
+    random = np.random.uniform(low=-1, high=1, size=children.shape)
     mutated_children = children + random
     mutated_children = np.clip(mutated_children, -10, 10)
     return mutated_children
@@ -123,8 +133,9 @@ for generation in range(NUMBER_OF_GENERATIONS):
     # Calculate fitness of the population
     fitness_of_population = get_fitness(population)
 
-    mini = np.argmin(fitness_of_population)
-    submit(SECRET_KEY, list(population[mini, :]))
+    # Submit the current best and print it
+    # mini = np.argmin(fitness_of_population)
+    # submit(SECRET_KEY, list(population[mini, :]))
     print("Current best:", np.min(fitness_of_population))
 
     # Select the mating pool that will become parents for the next generation
@@ -137,8 +148,8 @@ for generation in range(NUMBER_OF_GENERATIONS):
     # Adding mutations to the children
     children = mutation(children)
 
-    # Create new population 
+    # Create new population
     population[0: MATING_POOL_SIZE, :] = parents
-    population[MATING_POOL_SIZE: , :] = children
+    population[MATING_POOL_SIZE:, :] = children
 
 print(population)
