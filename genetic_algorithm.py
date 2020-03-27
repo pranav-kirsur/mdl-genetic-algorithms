@@ -92,7 +92,7 @@ def get_mating_pool(population, fitness):
 
 
 def crossover(parents, children_shape):
-    children = np.zeros((children_shape))
+    children = np.zeros((children_shape[0], 12))
 
     # Index at which crossover happens
     crossover_index = 5
@@ -109,7 +109,7 @@ def crossover(parents, children_shape):
         children[i, crossover_index:] = parents[parent_2_index, crossover_index:]
         children[i, 0: ] = np.divide((np.multiply(parents[parent_1_index,0: ],parent_2_index+1)  +  np.multiply(parents[parent_2_index, 0:],parent_1_index+1)),parent_1_index+parent_2_index+2)
 
-    return children
+    return children[:,0:11]
 
 
 def mutation(children):
@@ -150,7 +150,7 @@ for generation in range(NUMBER_OF_GENERATIONS):
     children = mutation(children)
 
     # Create new population
-    population[0: MATING_POOL_SIZE, :] = parents
+    population[0: MATING_POOL_SIZE, :] = parents[:, 0:11]
     population[MATING_POOL_SIZE:, :] = children
 
 print(population)
