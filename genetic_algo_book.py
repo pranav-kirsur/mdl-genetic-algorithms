@@ -72,7 +72,7 @@ init_array = [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 
 
 
 def get_fitness(population):
-    fitness_array = np.zeros((POPULATION_SIZE, 1))
+    fitness_array = np.ones((POPULATION_SIZE, 1))
     for member_index in range(POPULATION_SIZE):
         err_arr = get_errors(SECRET_KEY, list(population[member_index, :]))
         fitness_array[member_index] = (0.5 * err_arr[1]) + (0.5 * err_arr[0])
@@ -130,10 +130,28 @@ def mutation(children):
     return mutated_children
 
 
+def reproduce(x, y):
+    crossover_point = np.random.choice(11)
+    child = np.array(x)
+    child[0:crossover_point] = x[0:crossover_point]
+    child[crossover_point:] = y[crossover_point:]
+    return child
+
+def mutate(child):
+    random = np.random.uniform(low=-2.0, high=2.0, size=child.shape)
+    child = np.multiply(child, random)
+    child = np.clip(child, -10.0, 10.0)
+    return child
+
+
+
+
 # Creating the initial population randomly
 population = np.random.uniform(low=-10, high=10, size=population_size)
 
 population = np.tile(np.array(init_array), (POPULATION_SIZE, 1))
+
+population = pickle.load( open( "population.p", "rb" ) )
 print(population)
 
 
@@ -151,24 +169,32 @@ for generation in range(NUMBER_OF_GENERATIONS):
     # Calculate fitness of the population
     fitness_of_population = get_fitness(population)
 
+    reci_fitness_of_population = np.reciprocal(fitness_of_population)
+
+    # compute probablity of picking according to the parent
+    probablity = (np.transpose(reci_fitness_of_population)/ np.sum(reci_fitness_of_population))[0]
+
     # Submit the current best and print it
-    # mini = np.argmin(fitness_of_population)
-    # submit(SECRET_KEY, list(population[mini, :]))
+    mini = np.argmin(fitness_of_population)
+    submit(SECRET_KEY, list(population[mini, :]))
     print("Current best:", np.min(fitness_of_population))
+    print("Best vector:" , list(population[mini, :]))
 
-    # Select the mating pool that will become parents for the next generation
-    parents = get_mating_pool(population, fitness_of_population)
+    new_population = np.zeros(population.shape)
+    for i in range(POPULATION_SIZE):
+        x = population[np.random.choice(POPULATION_SIZE, p = probablity)]
+        y = population[np.random.choice(POPULATION_SIZE, p = probablity)]
 
-    # Generate children from parents by crossover
-    children = crossover(parents, children_shape=(
-        POPULATION_SIZE - MATING_POOL_SIZE, 11))
+        child = reproduce(x, y)
+        if(np.random.uniform() < 0.9):
+            child = mutate(child)
+        new_population[i] = child
+    
+    population = new_population
 
-    # Adding mutations to the children
-    children = mutation(children)
 
-    # Create new population
-    population[0: MATING_POOL_SIZE, :] = parents[:, 0:11]
-    population[MATING_POOL_SIZE:, :] = children
+        
+
 
 print(population)
 pickle.dump(population, open("population.p", "wb"))

@@ -1,0 +1,61 @@
+Script started on Sunday 29 March 2020 05:38:50 PM IST
+nvm is not compatible with the npm config "prefix" option: currently set to "/home/pranav_kirsur/.node"
+Run `npm config delete prefix` or `nvm use --delete-prefix v13.8.0 --silent` to unset it.
+]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ 
+]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ la
+allneldermead.txt    completely_random.py      gaoutputwithoverfitdiffcrossover.txt  genetic_algorithm.py  MDL_Assignment_3.pdf  randomprobmutate.txt            submit.py
+alloverfit.txt       differences               gaoutputwithoverfit.txt               [0m[01;34m.git[0m                  outpugenetic          randomwithbhavyamuta20gens.txt  WITH_KEYS_client_moodle.py
+bookgeneticalgo.txt  gaoutputmutatebhavya.txt  gaoutputwithrandom.txt                graddescent.py        overfit.txt           randomwithbhavyamuta.txt
+client_moodle.py     gaoutput.txt              genetic_algo_book.py                  log_test.txt          population.p          simulated_annealing.py
+]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ ls
+allneldermead.txt    completely_random.py      gaoutputwithoverfitdiffcrossover.txt  genetic_algorithm.py  outpugenetic          randomwithbhavyamuta20gens.txt  WITH_KEYS_client_moodle.py
+alloverfit.txt       differences               gaoutputwithoverfit.txt               graddescent.py        overfit.txt           randomwithbhavyamuta.txt
+bookgeneticalgo.txt  gaoutputmutatebhavya.txt  gaoutputwithrandom.txt                log_test.txt          population.p          simulated_annealing.py
+client_moodle.py     gaoutput.txt              genetic_algo_book.py                  MDL_Assignment_3.pdf  randomprobmutate.txt  submit.py
+]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ pyenc[Kv actic[Kvae[Kte ssad [K[K[K[K[K[K data
+pyenv-virtualenv: version `data' is already activated
+]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ python submit.py 
+^CTraceback (most recent call last):
+  File "submit.py", line 93, in <module>
+    err = get_errors(SECRET_KEY, array)
+  File "submit.py", line 25, in get_errors
+    return json.loads(send_request(id, vector, 'geterrors'))
+  File "submit.py", line 51, in send_request
+    response = requests.post(api, data={'id': id, 'vector': vector}).text
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/urllib3/connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/urllib3/connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/home/pranav_kirsur/.pyenv/versions/3.7.4/lib/python3.7/http/client.py", line 1244, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/home/pranav_kirsur/.pyenv/versions/3.7.4/lib/python3.7/http/client.py", line 1290, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/home/pranav_kirsur/.pyenv/versions/3.7.4/lib/python3.7/http/client.py", line 1239, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/pranav_kirsur/.pyenv/versions/3.7.4/lib/python3.7/http/client.py", line 1026, in _send_output
+    self.send(msg)
+  File "/home/pranav_kirsur/.pyenv/versions/3.7.4/lib/python3.7/http/client.py", line 966, in send
+    self.connect()
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/urllib3/connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/urllib3/connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "/home/pranav_kirsur/.pyenv/versions/data/lib/python3.7/site-packages/urllib3/util/connection.py", line 74, in create_connection
+    sock.connect(sa)
+KeyboardInterrupt
+]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ [H[2J]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ python submit.py 
+[445495.27788337524, 301019.35448849143]
+successfully submitted
+]0;pranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx: ~/mdl/assignment3[01;32mpranav_kirsur@pranavkirsur-HP-Pavilion-Laptop-15-cc1xx[00m:[01;34m~/mdl/assignment3[00m$ exit
+
+Script done on Sunday 29 March 2020 05:39:34 PM IST
