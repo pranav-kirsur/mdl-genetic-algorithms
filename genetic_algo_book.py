@@ -73,10 +73,12 @@ init_array = [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 
 
 def get_fitness(population):
     fitness_array = np.ones((POPULATION_SIZE, 1))
+    test_fitness = np.ones((POPULATION_SIZE, 1))
     for member_index in range(POPULATION_SIZE):
         err_arr = get_errors(SECRET_KEY, list(population[member_index, :]))
-        fitness_array[member_index] = (0.5 * err_arr[1]) + (0.5 * err_arr[0])
-    return fitness_array
+        fitness_array[member_index] =   err_arr[1]
+        test_fitness[member_index] = err_arr[0]
+    return fitness_array, test_fitness
 
 
 def get_mating_pool(population, fitness):
@@ -167,7 +169,7 @@ for generation in range(NUMBER_OF_GENERATIONS):
     print("Generation :", generation)
 
     # Calculate fitness of the population
-    fitness_of_population = get_fitness(population)
+    fitness_of_population, test_fitness_of_population = get_fitness(population)
 
     reci_fitness_of_population = np.reciprocal(fitness_of_population)
 
@@ -175,9 +177,9 @@ for generation in range(NUMBER_OF_GENERATIONS):
     probablity = (np.transpose(reci_fitness_of_population)/ np.sum(reci_fitness_of_population))[0]
 
     # Submit the current best and print it
-    mini = np.argmin(fitness_of_population)
+    mini = np.argmin(test_fitness_of_population)
     submit(SECRET_KEY, list(population[mini, :]))
-    print("Current best:", np.min(fitness_of_population))
+    print("Current best:", np.min(test_fitness_of_population))
     print("Best vector:" , list(population[mini, :]))
 
     new_population = np.zeros(population.shape)
